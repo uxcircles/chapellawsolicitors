@@ -340,7 +340,7 @@ p { margin: 0 0 1em; }
 .area-block-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); }
 .area-block-foot .fine { margin: 0; max-width: 46ch; }
 @media (max-width: 960px) {
-  .with-rail { grid-template-columns: 1fr; }
+  .with-rail { grid-template-columns: minmax(0, 1fr); }
   .rail { position: sticky; top: var(--header-h); z-index: 5; margin: 0 calc(var(--gutter) * -1); background: var(--paper); border-bottom: 1px solid var(--line); }
   .rail-inner { flex-direction: row; overflow-x: auto; border-left: 0; padding: 8px var(--gutter); gap: 6px; scrollbar-width: none; }
   .rail-inner::-webkit-scrollbar { display: none; }

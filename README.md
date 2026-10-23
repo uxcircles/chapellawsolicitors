@@ -29,37 +29,22 @@
 
 手機版底部固定「致電 / WhatsApp / 免費諮詢」列。
 
-## 原網站的問題與改版處理（2026 年 10 月檢視）
+## 內部筆記
 
-| # | 問題 | 改版 |
-|---|---|---|
-| 1 | **所有業務範圍詳情頁（`/practice/...`）和團隊頁（`/team/...`）都會跳回首頁**，「Read More」等於沒有內容 | 業務範圍頁有實際內容，每項都連到收費和諮詢表單 |
-| 2 | **兩個不同地址**：聯絡頁和頁尾一寫 NW2 7HJ（Atlas Business Centre），投訴頁和頁尾二寫 EC4M 7LF（Ludgate Circus）；關於頁又說在 City of London | 全站統一一個地址（見下方「待確認」） |
-| 3 | 首頁評價寫著 **「I would recommend A. Vincent Solicitors」**（另一家律所的名字） | 這則評價先拿掉，只保留 Garcia 的評價 |
-| 4 | **收費表是一張截圖**：手機看不清、無法搜尋、Google 讀不到 | 改成文字表格，可搜尋，並分類 |
-| 5 | 收費表仍使用已廢除的簽證名稱（Tier 2 / Tier 4 / Tier 5） | 改用現行名稱並保留舊稱，例如「Skilled Worker visa (formerly Tier 2)」 |
-| 6 | 首頁出現未處理的短代碼 **`[gtranslate]`** | 移除；改用正常的 EN / 中文 切換 |
-| 7 | 關於頁的數字「1825 Completed Works / 532 Satisfied Clients / **69 Winning Awards** / 27 Team Members」看起來是佈景主題的範例數字 | 移除 |
-| 8 | 業務範圍頁「Meet Our Attorneys」連到不存在的 Willy McHugh 頁面（範本人物） | 團隊名單只列網站上有職稱的成員，用姓名縮寫代替不明來源的照片 |
-| 9 | 主圖是法槌（英國律師不用法槌），首頁沒有說明收費、語言或下一步 | 文字主視覺直接說明三種語言、免費首次諮詢、固定收費，並把聯絡方式放在首屏 |
-| 10 | 選單出現兩個 Criminal Law（`criminal-law` 和 `criminal-law-2`） | 一個刑事法段落 |
-| 11 | 頁尾聯絡資料重複兩次；中文版電話號碼重複（「+44 (0) 20 3161 7187+44 (0) 20 3161 7187」） | 頁尾一份聯絡資料 |
-| 12 | 「Subscribe to the updates」沒有內容可訂閱 | 移除 |
+原網站問題清單、待律所確認事項和 pitch 資料放在本機的 `.private/`（已被 `.gitignore` 排除，不會進 git）。
 
-保留：SRA 數位徽章（Yoshki，SRA 要求展示）、投訴程序全文內容、WeChat ID、WhatsApp。
+第一次 clone 後啟用 git hooks：
 
-## 正式上線前需要律所確認
+```
+git config core.hooksPath .githooks
+```
 
-- [ ] **辦公地址**：NW2 7HJ 還是 EC4M 7LF？目前用聯絡頁的 `Office 207, Atlas Business Centre, London NW2 7HJ`（`_build/layout.py` 的 `ADDRESS`）
-- [ ] **Tier 1 Entrepreneur Settlement**：原表寫 **£64,500**，應該是打錯（同類項目約 £4,300–£4,500）。目前顯示「On request / 請咨詢」
-- [ ] **20 years' unlawful residence / illegal status**：原表寫「£1,800 (£500 upfront, £1,100 on grant)」，但 £500 + £1,100 = £1,600。照原文顯示，請確認
-- [ ] **VAT**：SRA 價格透明規定要求寫明收費是否含 VAT，原網站沒寫
-- [ ] 已關閉的簽證類別（Tier 1 Investor / Entrepreneur、Start-up、Innovator）是否仍要列出，或改列 Innovator Founder 等現行類別
-- [ ] **團隊**：Danny Liang（Director，來自投訴頁）、David、Andrew Hill、Dylan Yeap 是否正確？有沒有可用的正式照片？
-- [ ] **SRA 編號**：建議在頁尾加上 SRA number 和公司註冊號
-- [ ] 家事、商業、人身傷害、刑事法的服務清單是根據原網站「關於我們」頁的描述撰寫，請確認範圍
-- [ ] 第二則評價（提到 A. Vincent Solicitors）是否確實是本所客戶，如是請提供正確文字
-- [ ] 換到正式網域時加回 `canonical`、`og:image`
+之後每次 commit / push 會：
+
+- 擋下 `.private/` 裡的檔案，以及含有 `.private/blocklist.txt` 敏感字詞的內容
+- 列出 `.private/NOTES.md` 裡還沒完成的待辦（過期的會標出來）
+
+隨時查看待辦：`sh .githooks/remind.sh`
 
 ## 修改與建置
 
@@ -90,5 +75,6 @@ assets/css/style.css
 assets/js/main.js   手機選單、營業狀態、微信號複製、收費搜尋、側欄定位、諮詢表單
 assets/img/favicon.svg
 _build/             頁面產生器
+.githooks/          防止私人資料外流、顯示待辦提醒
 robots.txt
 ```
