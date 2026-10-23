@@ -404,7 +404,7 @@ p { margin: 0 0 1em; }
 .avatar { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--ink-900); color: var(--white); font-family: var(--serif); font-size: 1.2rem; letter-spacing: .04em; }
 .person p { margin: 0; display: flex; flex-direction: column; }
 .person strong { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--ink-900); }
-.person span { color: var(--ink-muted); font-size: .9rem; }
+.person p span { color: var(--ink-muted); font-size: .9rem; }
 @media (max-width: 960px) { .people { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .people { grid-template-columns: 1fr; } .person { flex-direction: row; align-items: center; } }
 
