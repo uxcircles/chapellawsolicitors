@@ -7,6 +7,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import layout  # noqa: E402
 from layout import (ADDRESS, EMAIL, LANGS, MAPS, TEL, TEL_HREF, WA, WA_TEL, WECHAT, L, icon, page,  # noqa: E402
                     set_lang)
 from fees import GROUPS  # noqa: E402
@@ -620,6 +621,9 @@ def build():
         contact()
         complaints()
         careers()
+    missing = sorted(set(layout.MISSING))
+    if missing:
+        sys.exit("Missing Arabic text in _build/ar.py for:\n  " + "\n  ".join(missing))
     print("Built", len(LANGS) * 7, "pages")
 
 

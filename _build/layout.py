@@ -17,6 +17,7 @@ SRA_BADGE = "https://cdn.yoshki.com/iframe/55845r.html"
 LANGS = {
     "en": {"prefix": "", "html": "en-GB", "label": "EN", "name": "English"},
     "zh": {"prefix": "zh/", "html": "zh-Hans", "label": "中文", "name": "简体中文"},
+    "ar": {"prefix": "ar/", "html": "ar", "label": "عربي", "name": "العربية", "dir": "rtl"},
 }
 
 _cur = ["en"]
@@ -30,8 +31,21 @@ def set_lang(lang):
     _cur[0] = lang
 
 
+MISSING = []
+
+
 def L(en, zh):
-    """Pick the text for the language being built."""
+    """Pick the text for the language being built. Arabic comes from ar.AR, keyed by the English text."""
+    if cur() == "ar":
+        if not isinstance(en, str):
+            return en
+        from ar import AR
+        if en not in AR:
+            if en.startswith("£"):
+                return en
+            MISSING.append(en)
+            return en
+        return AR[en]
     return en if cur() == "en" else zh
 
 
@@ -66,7 +80,7 @@ ICONS = {
 
 
 def icon(name, cls="ic"):
-    return (f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" '
+    return (f'<svg class="{cls} ic-{name}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" '
             f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[name]}</svg>')
 
 
@@ -114,10 +128,11 @@ def page(rel, *, key, title, description, body):
         for k, v in LANGS.items()
     )
     fonts = ("family=Noto+Serif+TC:wght@600&text=%E7%9B%9B%E5%80%AB%E7%B2%B5%E8%AA%9E&family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400"
-             + ("&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600" if lang == "zh" else ""))
+             + ("&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600" if lang == "zh" else "")
+             + ("&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Noto+Naskh+Arabic:wght@500;600;700" if lang == "ar" else ""))
 
     html = f"""<!doctype html>
-<html lang="{LANGS[lang]["html"]}">
+<html lang="{LANGS[lang]["html"]}" dir="{LANGS[lang].get("dir", "ltr")}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

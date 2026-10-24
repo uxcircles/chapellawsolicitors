@@ -74,7 +74,11 @@ function spy(links, onActive) {
 }
 const keepInView = (a) => {
   const row = a.parentElement;
-  if (row.scrollWidth > row.clientWidth) row.scrollTo({ left: a.offsetLeft - 24, behavior: 'smooth' });
+  if (row.scrollWidth <= row.clientWidth) return;
+  // Scroll the chip row only (works left-to-right and right-to-left)
+  const r = row.getBoundingClientRect();
+  const c = a.getBoundingClientRect();
+  row.scrollBy({ left: c.left - r.left - (r.width - c.width) / 2, behavior: 'smooth' });
 };
 spy([...document.querySelectorAll('.rail a')], keepInView);
 spy([...document.querySelectorAll('.chips a')], keepInView);

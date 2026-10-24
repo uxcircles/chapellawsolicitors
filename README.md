@@ -12,8 +12,9 @@
 |---|---|
 | `/` | English（預設，和原網站一致） |
 | `/zh/` | 简体中文（原網站的中文版也是簡體） |
+| `/ar/` | العربية（由右至左排版） |
 
-原網站另有阿拉伯文版（機器翻譯），這次沒有做。
+阿拉伯文版只說明律所以英語、普通話、粵語服務，不承諾阿拉伯語服務。
 
 ## 頁面
 
@@ -51,6 +52,7 @@ git config core.hooksPath .githooks
 HTML 由 `_build/` 產生，頁首、頁尾和導覽列保持一致：
 
 - 頁面內容：`_build/pages.py`（文字寫成 `L(English, 简体中文)`）
+- 阿拉伯文：`_build/ar.py`，以英文原文為鍵。新增或修改英文文字後要在這裡補上對應的阿拉伯文，否則建置會失敗並列出缺少的句子
 - 收費表：`_build/fees.py`
 - 頁首 / 頁尾 / 聯絡資料：`_build/layout.py`
 
@@ -71,6 +73,7 @@ python3 -m http.server 5180
 ```
 index.html, services.html, fees.html, about.html, contact.html, complaints.html, careers.html
 zh/                 同上，简体中文
+ar/                 同上，阿拉伯文
 assets/css/style.css
 assets/js/main.js   手機選單、營業狀態、微信號複製、收費搜尋、側欄定位、諮詢表單
 assets/img/favicon.svg
